@@ -1,0 +1,6 @@
+env/
+user-uploads/
+*.pdf
+ __pycache__/
+*.json
+*.pyc
