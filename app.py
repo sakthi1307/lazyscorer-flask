@@ -214,15 +214,14 @@ def submit_assignment(current_user):
         filename_abs = os.path.join(basedir,app.config['UPLOAD_FOLDER']+"/pdf/", filename)
         file.save(filename_abs)    
         pdf = pdfium.PdfDocument(filename_abs)
-        n_pages = len(pdf)  # get the number of pages in the document
-        print("no_pages",n_pages)
-        page_indices = [i for i in range(n_pages)]  # all pages
-        renderer = pdf.render(pdfium.PdfBitmap.to_pil,page_indices = page_indices,scale = 300/72)
+        n_pages = len(pdf)
+        print("no_pages", n_pages)
+        renderer = pdf.render(pdfium.PdfBitmap.to_pil, scale=300/72)
         photos_dir =app.config['UPLOAD_FOLDER']+'/'+ str(test_id)+"/"+str(submitted_by)
         os.makedirs(photos_dir)
-        for i, image in zip(page_indices, renderer):
-            image.save(photos_dir+"/out_%0*d.png" % (2,i))
-            answers.append(detect_document(photos_dir+"/out_%0*d.png" % (2,i)))
+        for i, image in enumerate(renderer):
+            image.save(photos_dir+"/out_%0*d.png" % (n_pages, i))
+            answers.append(detect_document(photos_dir+"/out_%0*d.png" % (n_pages, i)))
         # print(images_link,answers,"this is the list")
 
         assignment = {
