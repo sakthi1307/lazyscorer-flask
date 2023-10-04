@@ -1,4 +1,4 @@
-# LzyScorer
+# LazyScorer
 
 This is a Flask app that uses MongoDB as a backend database and Google Cloud Vision API for image recognition.
 
